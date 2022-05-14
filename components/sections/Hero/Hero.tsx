@@ -7,15 +7,16 @@ import { Button } from "components/ui/atoms";
 interface Props {
   title: string;
   subtitle: string;
+  href: string;
 }
 
-export const Hero = ({ title, subtitle }: Props) => {
+export const Hero = ({ title, subtitle, href }: Props) => {
   return (
     <section className={styles["hero-container"]}>
       <Image src={Logo} alt="numan logo" />
       <h1>{title}</h1>
       <p>{subtitle}</p>
-      <Link href={"/categories"}>
+      <Link href={href}>
         <a>
           <Button>Get started</Button>
         </a>

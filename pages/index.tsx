@@ -14,6 +14,7 @@ const Home: NextPage = () => {
       <Hero
         title="The helpful healthcare company"
         subtitle="helping your health wherever we can"
+        href="/categories"
       />
     </>
   );
