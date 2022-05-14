@@ -26,3 +26,11 @@ export interface Category {
   };
   type: string;
 }
+
+export interface Product {
+  id: string;
+  type: string;
+  attributes: [];
+  relationships: [];
+  links: [];
+}
