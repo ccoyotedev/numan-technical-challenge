@@ -1,4 +1,5 @@
 import { SimpleNavLayout } from "components/layouts";
+import { ProductSelector } from "components/sections/ProductSelector/ProductSelector";
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import { Category, Product } from "types";
 
@@ -8,7 +9,7 @@ const Category: NextPage<{ products: Product[] }> = ({
   console.log(products);
   return (
     <SimpleNavLayout back="/categories">
-      <div></div>
+      <ProductSelector />
     </SimpleNavLayout>
   );
 };

@@ -10,7 +10,9 @@ const Categories: NextPage<{ categories: Category[] }> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>();
 
   return (
-    <SimpleNavLayout to={`/categories/${selectedCategory}`}>
+    <SimpleNavLayout
+      to={selectedCategory ? `/categories/${selectedCategory}` : undefined}
+    >
       <CategorySelector
         categories={categories}
         onSelect={setSelectedCategory}

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.scss";
 import { Logo } from "assets/images";
-import { Button } from "components/ui/atoms";
+import { Button } from "components/ui";
 import { ChevronRight } from "components/svgs";
 
 interface Props {

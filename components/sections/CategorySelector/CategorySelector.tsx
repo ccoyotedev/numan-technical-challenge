@@ -1,4 +1,4 @@
-import { CategoryCard } from "components/ui/atoms";
+import { CategoryCard } from "components/ui";
 import { Category } from "types";
 import styles from "./styles.module.scss";
 
