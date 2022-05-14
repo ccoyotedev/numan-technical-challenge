@@ -1,0 +1,32 @@
+$header-height: 8rem;
+$footer-height: 8.8rem;
+
+.simple-header {
+  height: $header-height;
+  position: fixed; 
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: $bg-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.simple-main {
+  padding: $header-height 0 $footer-height;
+  background-color: $bg-secondary;
+  min-height: 100vh;
+}
+
+.simple-footer {
+  height: $footer-height;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: $bg-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

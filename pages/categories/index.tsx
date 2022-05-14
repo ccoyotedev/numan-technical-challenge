@@ -1,3 +1,4 @@
+import { SimpleNavLayout } from "components/layouts";
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import { Category } from "types";
 
@@ -5,7 +6,11 @@ const Categories: NextPage<{ categories: Category[] }> = ({
   categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   console.log(categories);
-  return <div></div>;
+  return (
+    <SimpleNavLayout>
+      <div className="container"></div>
+    </SimpleNavLayout>
+  );
 };
 
 export const getStaticProps: GetStaticProps<{

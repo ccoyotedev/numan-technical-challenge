@@ -11,6 +11,9 @@ a {
   color: inherit;
   text-decoration: none;
 }
+a.disabled {
+  pointer-events: none;
+}
 
 * {
   box-sizing: border-box;
