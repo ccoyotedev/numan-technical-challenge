@@ -1,4 +1,4 @@
-import { Input, ListHeading } from "components/ui";
+import { InfoCard, Input, ListHeading } from "components/ui";
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -18,6 +18,12 @@ export const PersonalDetailsForm = () => {
           to.
         </p>
         <ListHeading number={1} title="Personal information" />
+        <InfoCard>
+          <p className="p-sm">
+            We are required to confirm the identity of our members. Any
+            incorrect details will cause delays to your order.
+          </p>
+        </InfoCard>
         <Input
           type="text"
           label="Legal first name"
