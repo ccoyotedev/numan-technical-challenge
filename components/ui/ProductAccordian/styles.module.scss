@@ -50,5 +50,9 @@
   .label {
     display: flex;
     justify-content: space-between;
+
+    small {
+      color: #545454;
+    }
   }
 }

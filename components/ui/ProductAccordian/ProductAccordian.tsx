@@ -1,7 +1,11 @@
 import styles from "./styles.module.scss";
 import { useState } from "react";
 import { ExtendedProduct, ProductVariant } from "types";
-import { convertNumberToPrice } from "utils/functions";
+import {
+  convertFrequencyToReadableString,
+  convertNumberToPrice,
+  getProductFromVariantId,
+} from "utils/functions";
 import { RadioInput } from "../RadioInput/RadioInput";
 import { ExpandIcon } from "components/svgs";
 
@@ -9,10 +13,16 @@ interface Props {
   product: ExtendedProduct;
   value?: string;
   onSelect: (id: string) => void;
+  initialOpenState?: boolean;
 }
 
-export const ProductAccordian = ({ product, value, onSelect }: Props) => {
-  const [open, setOpen] = useState(false);
+export const ProductAccordian = ({
+  product,
+  value,
+  onSelect,
+  initialOpenState,
+}: Props) => {
+  const [open, setOpen] = useState(initialOpenState);
 
   const orderVariants = (variants: ProductVariant[]) => {
     return variants.sort((a, b) => a.attributes.price - b.attributes.price);
@@ -57,6 +67,12 @@ export const ProductAccordian = ({ product, value, onSelect }: Props) => {
                 <div className={styles["label"]}>
                   <div>
                     <p>{variant.attributes.variant}</p>
+                    <small>
+                      every{" "}
+                      {convertFrequencyToReadableString(
+                        variant.attributes.subscription_frequency
+                      )}
+                    </small>
                   </div>
                   <p>{convertNumberToPrice(variant.attributes.price)}</p>
                 </div>

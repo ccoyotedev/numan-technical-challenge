@@ -9,9 +9,17 @@ interface Props {
   to?: string;
   back?: string;
   children: React.ReactNode;
+  disabled?: boolean;
+  handleClick?: () => void;
 }
 
-export const SimpleNavLayout = ({ to, back, children }: Props) => {
+export const SimpleNavLayout = ({
+  to,
+  back,
+  children,
+  disabled,
+  handleClick,
+}: Props) => {
   return (
     <>
       <header className={styles["simple-header"]}>
@@ -35,17 +43,28 @@ export const SimpleNavLayout = ({ to, back, children }: Props) => {
             </a>
           </Link>
         )}
-        <Link href={to || "#"}>
-          <a className={!to ? "disabled" : ""}>
-            <Button
-              wide
-              icon={<ChevronRight fill="white" size="22" />}
-              disabled={!to}
-            >
-              Next{" "}
-            </Button>
-          </a>
-        </Link>
+        {handleClick ? (
+          <Button
+            onClick={handleClick}
+            wide
+            icon={<ChevronRight fill="white" size="22" />}
+            disabled={disabled}
+          >
+            Next{" "}
+          </Button>
+        ) : (
+          <Link href={to || "#"}>
+            <a className={disabled ? "disabled" : ""}>
+              <Button
+                wide
+                icon={<ChevronRight fill="white" size="22" />}
+                disabled={disabled}
+              >
+                Next{" "}
+              </Button>
+            </a>
+          </Link>
+        )}
       </footer>
     </>
   );

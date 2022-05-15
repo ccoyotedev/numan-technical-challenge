@@ -12,6 +12,7 @@ const Categories: NextPage<{ categories: Category[] }> = ({
   return (
     <SimpleNavLayout
       to={selectedCategory ? `/categories/${selectedCategory}` : undefined}
+      disabled={!selectedCategory}
     >
       <CategorySelector
         categories={categories}

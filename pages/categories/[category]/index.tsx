@@ -5,8 +5,10 @@ import { useState } from "react";
 import { Category, ExtendedProduct, Product, ProductVariant } from "types";
 import {
   getDefaultVariantFromProductId,
+  getProductFromVariantId,
   getVariantFromId,
 } from "utils/functions";
+import { useRouter } from "next/router";
 
 const Category: NextPage<{
   products: ExtendedProduct[];
@@ -15,25 +17,43 @@ const Category: NextPage<{
   products,
   defaultProductId,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [selectedVariant, setSelectedVariant] = useState<
-    ProductVariant | undefined
+  const router = useRouter();
+  const [selectedVariantId, setSelectedVariantId] = useState<
+    string | undefined
   >(
     defaultProductId
-      ? getDefaultVariantFromProductId(products, defaultProductId)
+      ? getDefaultVariantFromProductId(products, defaultProductId)?.id
       : undefined
   );
 
-  const handleVariantSelect = (id: string) => {
-    const variant = getVariantFromId(products, id);
-    setSelectedVariant(variant);
+  const handleNav = () => {
+    if (!selectedVariantId) return;
+    const product = getProductFromVariantId(products, selectedVariantId);
+    if (!product) return;
+    const variant = getVariantFromId([product], selectedVariantId);
+    if (!variant) return;
+
+    const storage = {
+      productName: product.attributes.name,
+      variant: variant.attributes.variant,
+      price: variant.attributes.price,
+      subscriptionFrequency: variant.attributes.subscription_frequency,
+    };
+    localStorage.setItem("order", JSON.stringify(storage));
+    const currentPath = router.asPath;
+    router.push(`${currentPath}/details`);
   };
 
   return (
-    <SimpleNavLayout back="/categories">
+    <SimpleNavLayout
+      back="/categories"
+      disabled={!selectedVariantId}
+      handleClick={handleNav}
+    >
       <ProductSelector
         products={products}
-        value={selectedVariant?.id}
-        onSelect={handleVariantSelect}
+        value={selectedVariantId}
+        onSelect={setSelectedVariantId}
       />
     </SimpleNavLayout>
   );

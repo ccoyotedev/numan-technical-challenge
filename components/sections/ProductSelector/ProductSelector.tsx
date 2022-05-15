@@ -1,5 +1,6 @@
 import { ProductAccordian } from "components/ui";
 import { ExtendedProduct } from "types";
+import { getProductFromVariantId } from "utils/functions";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -25,6 +26,11 @@ export const ProductSelector = ({ products, onSelect, value }: Props) => {
               product={product}
               onSelect={onSelect}
               value={value}
+              initialOpenState={
+                value
+                  ? product.id === getProductFromVariantId(products, value)?.id
+                  : undefined
+              }
             />
           </div>
         ))}
