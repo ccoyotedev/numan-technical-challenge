@@ -100,7 +100,7 @@ export const getStaticProps: GetStaticProps<{
     };
   });
 
-  // GET DEFAULT PRODUCT Id
+  // GET DEFAULT PRODUCT ID
   const defaultId = category?.attributes.default_product_id;
 
   // pass products to props

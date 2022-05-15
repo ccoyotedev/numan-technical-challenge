@@ -7,28 +7,44 @@
   &.open {
     box-shadow: 0 0 0 2px $accent;
     padding-bottom: 1.6rem;
+
+    .dropdown {
+      padding: 0 1.6rem;
+      display: block;
+    }
   }
 
   .accordian-toggle {
     padding: 1.6rem;
     width: 100%;
+    position: relative;
+
+    .expand-icon {
+      position: absolute;
+      top: calc(50% - 11px);
+      right: 1.6rem;
+    }
   }
 
   .product-details {
     p ,
     small{
       font-weight: 700;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1.6rem;
     }
   }
 
   .dropdown {
-    padding: 0 1.6rem;
+    display: none;
+
+    & > p {
+      margin-bottom: 2.4rem;
+    }
   }
 }
 
 .radio-container {
-  margin-top: 1.6rem;
+  margin: 1.6rem 0 0.8rem;
   width: 100%;
   
   .label {

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ExtendedProduct, ProductVariant } from "types";
 import { convertNumberToPrice } from "utils/functions";
 import { RadioInput } from "../RadioInput/RadioInput";
+import { ExpandIcon } from "components/svgs";
 
 interface Props {
   product: ExtendedProduct;
@@ -32,6 +33,9 @@ export const ProductAccordian = ({ product, value, onSelect }: Props) => {
         className={styles["accordian-toggle"]}
       >
         {/* <figure className="product-img"></figure> */}
+        <span className={styles["expand-icon"]}>
+          <ExpandIcon size="22" open={open} />
+        </span>
         <div className={styles["product-details"]}>
           <p>{product.attributes.name}</p>
           <small>
