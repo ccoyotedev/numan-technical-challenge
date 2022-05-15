@@ -1,0 +1,38 @@
+.accordian {
+  background-color: $secondary;
+  border-radius: 8px;
+  transition: 200ms;
+  box-shadow: 0 0 0 1px $outline;
+
+  &.open {
+    box-shadow: 0 0 0 2px $accent;
+    padding-bottom: 1.6rem;
+  }
+
+  .accordian-toggle {
+    padding: 1.6rem;
+    width: 100%;
+  }
+
+  .product-details {
+    p ,
+    small{
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+  }
+
+  .dropdown {
+    padding: 0 1.6rem;
+  }
+}
+
+.radio-container {
+  margin-top: 1.6rem;
+  width: 100%;
+  
+  .label {
+    display: flex;
+    justify-content: space-between;
+  }
+}

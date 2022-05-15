@@ -41,7 +41,7 @@ export interface Product {
     medicine: boolean;
     description: string;
     long_description: string;
-    sumary: string;
+    summary: string;
     availability: string;
     dosage: string;
     risks: string;

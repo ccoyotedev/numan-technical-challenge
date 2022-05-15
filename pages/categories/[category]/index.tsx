@@ -1,15 +1,40 @@
 import { SimpleNavLayout } from "components/layouts";
 import { ProductSelector } from "components/sections/ProductSelector/ProductSelector";
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
+import { useState } from "react";
 import { Category, ExtendedProduct, Product, ProductVariant } from "types";
+import {
+  getDefaultVariantFromProductId,
+  getVariantFromId,
+} from "utils/functions";
 
-const Category: NextPage<{ products: ExtendedProduct[] }> = ({
+const Category: NextPage<{
+  products: ExtendedProduct[];
+  defaultProductId?: string;
+}> = ({
   products,
+  defaultProductId,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  console.log(products);
+  const [selectedVariant, setSelectedVariant] = useState<
+    ProductVariant | undefined
+  >(
+    defaultProductId
+      ? getDefaultVariantFromProductId(products, defaultProductId)
+      : undefined
+  );
+
+  const handleVariantSelect = (id: string) => {
+    const variant = getVariantFromId(products, id);
+    setSelectedVariant(variant);
+  };
+
   return (
     <SimpleNavLayout back="/categories">
-      <ProductSelector />
+      <ProductSelector
+        products={products}
+        value={selectedVariant?.id}
+        onSelect={handleVariantSelect}
+      />
     </SimpleNavLayout>
   );
 };
@@ -34,6 +59,7 @@ export const getStaticPaths = async () => {
 // Also call getStaticProps so we can fetch data about the category
 export const getStaticProps: GetStaticProps<{
   products: ExtendedProduct[];
+  defaultProductId?: string;
 }> = async ({ params }) => {
   // params contains the category `id`.
   // Call external API endpoint to get products
@@ -45,6 +71,7 @@ export const getStaticProps: GetStaticProps<{
   }: { data: Category[]; included: Array<Product | ProductVariant> } =
     await res.json();
 
+  // GET PRODUCTS + VARIANTS
   // Get related product Ids from category with matching slug
   const category = data.find((item) => item.attributes.slug === slug);
   const productIds = category?.relationships.products.data.map(
@@ -73,10 +100,14 @@ export const getStaticProps: GetStaticProps<{
     };
   });
 
+  // GET DEFAULT PRODUCT Id
+  const defaultId = category?.attributes.default_product_id;
+
   // pass products to props
   return {
     props: {
       products: productsWithVariants,
+      defaultProductId: defaultId,
     },
   };
 };
