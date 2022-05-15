@@ -4,7 +4,7 @@ export const ProductSelector = () => {
   return (
     <section className="container">
       <div className={styles["form-container"]}>
-        <h6>Please choose your preferred monthly treatment</h6>
+        <h6>Please choose your preferred monthly treatment.</h6>
       </div>
     </section>
   );

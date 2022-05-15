@@ -1,9 +1,9 @@
 import { SimpleNavLayout } from "components/layouts";
 import { ProductSelector } from "components/sections/ProductSelector/ProductSelector";
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
-import { Category, Product } from "types";
+import { Category, ExtendedProduct, Product, ProductVariant } from "types";
 
-const Category: NextPage<{ products: Product[] }> = ({
+const Category: NextPage<{ products: ExtendedProduct[] }> = ({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   console.log(products);
@@ -32,30 +32,51 @@ export const getStaticPaths = async () => {
 };
 
 // Also call getStaticProps so we can fetch data about the category
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps<{
+  products: ExtendedProduct[];
+}> = async ({ params }) => {
   // params contains the category `id`.
   // Call external API endpoint to get products
   const slug = params?.category;
   const res = await fetch("https://testapi.numan.com/v1/product_categories");
-  const { data, included } = await res.json();
+  const {
+    data,
+    included,
+  }: { data: Category[]; included: Array<Product | ProductVariant> } =
+    await res.json();
 
   // Get related product Ids from category with matching slug
-  const category = (data as Category[]).find(
-    (item) => item.attributes.slug === slug
-  );
+  const category = data.find((item) => item.attributes.slug === slug);
   const productIds = category?.relationships.products.data.map(
     (item) => item.id
   );
 
-  // Filter all products by the related product Ids
-  const products = (included as Product[]).filter((item) =>
-    productIds?.includes(item.id)
-  );
+  // Filter all products + variants by the related product Ids and type
+  const products = included.filter(
+    (item) => productIds?.includes(item.id) && item.type === "product"
+  ) as Product[];
+
+  // Map in product variants
+  const productsWithVariants = products.map((item) => {
+    // Get related variant Ids
+    const variantsIds = item.relationships.product_variants.data.map(
+      (variant) => variant.id
+    );
+    // Filter all products + variants by the related variant Ids
+    const variants = included.filter(
+      (item) => variantsIds.includes(item.id) && item.type === "product_variant"
+    ) as ProductVariant[];
+
+    return {
+      ...item,
+      variants,
+    };
+  });
 
   // pass products to props
   return {
     props: {
-      products,
+      products: productsWithVariants,
     },
   };
 };
