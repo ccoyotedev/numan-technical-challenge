@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
 import { SimpleNavLayout } from "components/layouts";
+import { PersonalDetailsForm } from "components/sections";
 
 const Details: NextPage = () => {
   return (
     <SimpleNavLayout>
-      <div></div>
+      <PersonalDetailsForm />
     </SimpleNavLayout>
   );
 };

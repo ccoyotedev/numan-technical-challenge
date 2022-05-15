@@ -1,5 +1,5 @@
 import { SimpleNavLayout } from "components/layouts";
-import { ProductSelector } from "components/sections/ProductSelector/ProductSelector";
+import { ProductSelector } from "components/sections";
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import { useState } from "react";
 import { Category, ExtendedProduct, Product, ProductVariant } from "types";
