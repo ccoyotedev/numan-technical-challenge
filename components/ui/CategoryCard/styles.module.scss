@@ -5,9 +5,10 @@
   width: 100%;
   background-color: $error;
   padding: 1.2rem;
-  opacity: 0.9;
+  opacity: 1;
   // border: 0.4rem solid transparent;
   overflow: hidden;
+  transition: transform 300ms ease;
 
   .img-container {
     position: absolute;
@@ -31,7 +32,7 @@
 
   &.active {
     outline: 0.4rem solid $accent;
-    opacity: 1;
+    transform: scale(1.01);
   }
 
   @media (min-width: 768px) {

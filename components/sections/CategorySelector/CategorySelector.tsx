@@ -21,7 +21,7 @@ export const CategorySelector = ({ categories, onSelect, selected }: Props) => {
         <h2>What can we help with today?</h2>
         <p>Choose a category</p>
       </div>
-      <div className="row">
+      <div className={`row ${styles["category-grid"]}`}>
         {orderCategories(categories).map((category) => (
           <button
             key={category.id}
