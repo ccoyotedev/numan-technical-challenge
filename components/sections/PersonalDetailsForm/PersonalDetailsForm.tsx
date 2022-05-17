@@ -1,12 +1,22 @@
 import { InfoCard, Input, ListHeading } from "components/ui";
 import { useState } from "react";
+import { PersonalDetails } from "types";
 import styles from "./styles.module.scss";
 
 export const PersonalDetailsForm = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
+  const [personalDetails, setPersonalDetails] = useState<PersonalDetails>({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    emailAddress: "",
+  });
+
+  const handleSetDetails = (property: keyof PersonalDetails, value: string) => {
+    setPersonalDetails((prevState) => ({
+      ...prevState,
+      [property]: value,
+    }));
+  };
 
   return (
     <section className="container">
@@ -28,28 +38,28 @@ export const PersonalDetailsForm = () => {
           type="text"
           label="Legal first name"
           message="Please write your name as it appears on your passport or ID. We need your full legal name to confirm your identity."
-          onChange={(e) => setFirstName(e.target.value)}
-          value={firstName}
+          onChange={(e) => handleSetDetails("firstName", e.target.value)}
+          value={personalDetails.firstName}
         />
         <Input
           type="text"
           label="Legal surname"
-          onChange={(e) => setLastName(e.target.value)}
-          value={lastName}
+          onChange={(e) => handleSetDetails("lastName", e.target.value)}
+          value={personalDetails.lastName}
         />
         <hr />
         <ListHeading number={2} title="Contact details" />
         <Input
           type="tel"
           label="Phone number"
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          value={phoneNumber}
+          onChange={(e) => handleSetDetails("phoneNumber", e.target.value)}
+          value={personalDetails.phoneNumber}
         />
         <Input
           type="email"
           label="Email address"
-          onChange={(e) => setEmailAddress(e.target.value)}
-          value={emailAddress}
+          onChange={(e) => handleSetDetails("emailAddress", e.target.value)}
+          value={personalDetails.emailAddress}
         />
       </div>
     </section>

@@ -63,12 +63,15 @@ h6 {
 }
 p {
   font-size: 1.6rem;
+  color: rgba(0, 0, 0, 0.87);
 }
 .p-sm {
   font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.87);
 }
 small {
   font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 hr {

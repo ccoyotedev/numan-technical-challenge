@@ -109,3 +109,10 @@ export interface Order {
   subscriptionFrequency: string;
   variant: string;
 }
+
+export interface PersonalDetails {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  emailAddress: string;
+}

@@ -1,0 +1,53 @@
+.summary-container {
+  padding: 5.4rem 0;
+
+  @media (min-width: 768px) {
+    & > div:first-of-type {
+      order: 1
+    }
+  
+    & > div:nth-of-type(2) {
+      order: -1
+    }
+  }
+
+  @media (min-width: 992px) {
+    & > div:first-of-type {
+      padding-left: 3.2rem;
+    }
+    
+    & > div:nth-of-type(2) {
+      padding-right: 3.2rem;
+    }
+  }
+
+  .details-container {
+    h2 {
+      margin: 1.8rem 0 2.4rem;
+    }
+
+    @media (min-width: 768px) {
+      h2 {
+        margin: 0 0 2.4rem;
+      }
+    }
+
+    
+  }
+
+  .personal-information,
+  .contact-information {
+    .info {
+      padding: 1.2rem 3.2rem;
+      font-size: 1.6rem;
+      display: block;
+    }
+  }
+
+  .personal-information {
+    margin-top: 4rem;
+  }
+  .contact-information {
+    margin-bottom: 5.4rem;
+  }
+}

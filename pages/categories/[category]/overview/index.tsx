@@ -3,8 +3,10 @@ import { Header } from "components/ui";
 import { useEffect, useState } from "react";
 import { Order } from "types";
 import { OrderSummary } from "components/sections";
+import { useRouter } from "next/router";
 
 const Overview: NextPage = () => {
+  const router = useRouter();
   const [order, setOrder] = useState<Order>();
 
   useEffect(() => {
@@ -15,9 +17,17 @@ const Overview: NextPage = () => {
 
   return (
     <>
-      <Header />
+      <Header back={router.back} />
       <main className="main">
-        <OrderSummary order={order} />
+        <OrderSummary
+          order={order}
+          personalDetails={{
+            firstName: "Caleb",
+            lastName: "Brown",
+            phoneNumber: "07892786672",
+            emailAddress: "calebgcbrown@gmail.com",
+          }}
+        />
       </main>
     </>
   );
