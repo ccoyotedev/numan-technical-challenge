@@ -10,7 +10,7 @@ export const RadioInput = ({ children, checked, onClick }: Props) => {
   return (
     <label className={styles["radio-container"]} onClick={onClick}>
       {children}
-      <input type="radio" checked={checked} />
+      <input type="radio" checked={checked} onChange={() => null} />
       <span className={styles["checkmark"]}></span>
     </label>
   );

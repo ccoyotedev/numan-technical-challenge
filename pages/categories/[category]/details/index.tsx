@@ -68,8 +68,13 @@ const Details: NextPage = () => {
       }
 
       saveUsersDetails(personalDetails);
-      handleNav("overview");
     }
+  };
+
+  const getToPath = () => {
+    const currentPath = router.asPath;
+    const newPath = currentPath.replace("details", "overview");
+    return newPath;
   };
 
   const handleNav = useCallback(
@@ -99,6 +104,7 @@ const Details: NextPage = () => {
         <title>Numan | A few details about you</title>
       </Head>
       <SimpleNavLayout
+        to={getToPath()}
         handleClick={handleSubmit}
         headerBack={() => handleNav("")}
       >

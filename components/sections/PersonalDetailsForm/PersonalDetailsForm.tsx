@@ -30,6 +30,7 @@ export const PersonalDetailsForm = ({
           </p>
         </InfoCard>
         <Input
+          data-index="1"
           type="text"
           error={
             errors.firstName
@@ -42,6 +43,7 @@ export const PersonalDetailsForm = ({
           value={values.firstName}
         />
         <Input
+          data-index="2"
           type="text"
           error={
             errors.lastName ? `Legal surname ${errors.lastName}` : undefined
@@ -53,6 +55,7 @@ export const PersonalDetailsForm = ({
         <hr />
         <ListHeading number={2} title="Contact details" />
         <Input
+          data-index="3"
           type="tel"
           error={
             errors.phoneNumber
@@ -64,6 +67,7 @@ export const PersonalDetailsForm = ({
           value={values.phoneNumber}
         />
         <Input
+          data-index="4"
           type="email"
           error={
             errors.emailAddress
