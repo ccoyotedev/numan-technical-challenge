@@ -7,21 +7,25 @@ interface Props
   > {
   label: string;
   message?: string;
+  error?: string;
 }
 
-export const Input = ({ label, message, ...props }: Props) => {
+export const Input = ({ label, message, error, ...props }: Props) => {
   return (
     <div className={styles["input-wrapper"]}>
       <div
         className={`${styles["input-container"]} ${
           props.value ? styles["has-value"] : ""
-        }`}
+        } ${error ? styles["error"] : ""}`}
       >
         <legend>{label}</legend>
         <label>{label}</label>
         <input {...props} />
       </div>
-      {message && <small className={styles["message"]}>{message}</small>}
+      {error && <small className={styles["error-message"]}>{error}</small>}
+      {message && !error && (
+        <small className={styles["message"]}>{message}</small>
+      )}
     </div>
   );
 };

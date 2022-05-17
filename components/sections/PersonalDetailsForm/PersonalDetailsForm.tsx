@@ -1,23 +1,18 @@
 import { InfoCard, Input, ListHeading } from "components/ui";
-import { useState } from "react";
 import { PersonalDetails } from "types";
 import styles from "./styles.module.scss";
 
-export const PersonalDetailsForm = () => {
-  const [personalDetails, setPersonalDetails] = useState<PersonalDetails>({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    emailAddress: "",
-  });
+interface Props {
+  onValueChange: (property: keyof PersonalDetails, value: string) => void;
+  values: PersonalDetails;
+  errors: { [key in keyof PersonalDetails]: undefined | string };
+}
 
-  const handleSetDetails = (property: keyof PersonalDetails, value: string) => {
-    setPersonalDetails((prevState) => ({
-      ...prevState,
-      [property]: value,
-    }));
-  };
-
+export const PersonalDetailsForm = ({
+  onValueChange,
+  values,
+  errors,
+}: Props) => {
   return (
     <section className="container">
       <div className={styles["form-container"]}>
@@ -36,30 +31,48 @@ export const PersonalDetailsForm = () => {
         </InfoCard>
         <Input
           type="text"
+          error={
+            errors.firstName
+              ? `Legal first name ${errors.firstName}`
+              : undefined
+          }
           label="Legal first name"
           message="Please write your name as it appears on your passport or ID. We need your full legal name to confirm your identity."
-          onChange={(e) => handleSetDetails("firstName", e.target.value)}
-          value={personalDetails.firstName}
+          onChange={(e) => onValueChange("firstName", e.target.value)}
+          value={values.firstName}
         />
         <Input
           type="text"
+          error={
+            errors.lastName ? `Legal surname ${errors.lastName}` : undefined
+          }
           label="Legal surname"
-          onChange={(e) => handleSetDetails("lastName", e.target.value)}
-          value={personalDetails.lastName}
+          onChange={(e) => onValueChange("lastName", e.target.value)}
+          value={values.lastName}
         />
         <hr />
         <ListHeading number={2} title="Contact details" />
         <Input
           type="tel"
+          error={
+            errors.phoneNumber
+              ? `Phone number ${errors.phoneNumber}`
+              : undefined
+          }
           label="Phone number"
-          onChange={(e) => handleSetDetails("phoneNumber", e.target.value)}
-          value={personalDetails.phoneNumber}
+          onChange={(e) => onValueChange("phoneNumber", e.target.value)}
+          value={values.phoneNumber}
         />
         <Input
           type="email"
+          error={
+            errors.emailAddress
+              ? `Email address ${errors.emailAddress}`
+              : undefined
+          }
           label="Email address"
-          onChange={(e) => handleSetDetails("emailAddress", e.target.value)}
-          value={personalDetails.emailAddress}
+          onChange={(e) => onValueChange("emailAddress", e.target.value)}
+          value={values.emailAddress}
         />
       </div>
     </section>

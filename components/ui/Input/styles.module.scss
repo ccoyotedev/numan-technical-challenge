@@ -12,8 +12,12 @@
   transition: box-shadow 300ms ease;
 
   &:hover {
-    border-color: $primary;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.83);
   }
+  &.error {
+    box-shadow: 0 0 0 2px $error;
+  }
+
 
   legend {
     position: absolute;
@@ -67,8 +71,13 @@
   }
 }
 
+.error-message,
 .message {
   margin: 0.4rem 0.8rem;
   display: block;
   color:rgba(0,0,0,0.6);
+}
+
+.error-message {
+  color: $error;
 }

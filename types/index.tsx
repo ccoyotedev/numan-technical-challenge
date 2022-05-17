@@ -110,9 +110,7 @@ export interface Order {
   variant: string;
 }
 
-export interface PersonalDetails {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  emailAddress: string;
-}
+export type Detail = "firstName" | "lastName" | "phoneNumber" | "emailAddress";
+export type PersonalDetails = {
+  [key in Detail]: string;
+};
