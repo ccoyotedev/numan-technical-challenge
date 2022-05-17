@@ -1,6 +1,6 @@
 # Numan Technical Challenge
 
-View [Deployed site here](https://numan-technical-challenge.vercel.app/)
+View [Deployed site here](https://numan-technical-challenge.vercel.app/).
 
 <img width="1440" alt="Screenshot 2022-05-17 at 23 27 43" src="https://user-images.githubusercontent.com/44173285/168922572-15194b9a-6559-4016-ab52-7cb881ca297e.png">
 
