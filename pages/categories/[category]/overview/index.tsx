@@ -12,15 +12,17 @@ const Overview: NextPage = () => {
   const { userDetails, removeUserDetails } = useCookies();
 
   const handlePayment = () => {
-    const currentPath = router.asPath;
-    const newPath = currentPath.replace("overview", "success");
-    router.push(newPath);
+    handleNav("success");
   };
 
   const handleEditDetails = () => {
     removeUserDetails();
+    handleNav("details");
+  };
+
+  const handleNav = (path: string) => {
     const currentPath = router.asPath;
-    const newPath = currentPath.replace("overview", "details");
+    const newPath = currentPath.replace("overview", path);
     router.push(newPath);
   };
 
@@ -29,7 +31,7 @@ const Overview: NextPage = () => {
       <Head>
         <title>Numan | Overview</title>
       </Head>
-      <Header back={router.back} />
+      <Header back={() => handleNav("")} />
       <main className="main">
         <OrderSummary
           handlePayment={handlePayment}
