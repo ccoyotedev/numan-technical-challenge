@@ -4,10 +4,14 @@ import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import { useState } from "react";
 import { Category } from "types";
 import Head from "next/head";
+import { useGlobal } from "context";
+import { useRouter } from "next/router";
 
 const Categories: NextPage<{ categories: Category[] }> = ({
   categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const router = useRouter();
+  const [{ userId }] = useGlobal();
   const [selectedCategory, setSelectedCategory] = useState<string>();
 
   return (

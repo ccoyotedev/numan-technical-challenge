@@ -70,6 +70,7 @@ const Details: NextPage = () => {
     const hasEmptyField = Object.keys(userDetails).some(
       (key) => userDetails[key as Detail] === ""
     );
+    // Auto fill inputs
     setPersonalDetails(userDetails);
     if (!hasEmptyField) {
       handleNav("overview");

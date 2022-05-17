@@ -4,6 +4,7 @@ import { getProductFromVariantId, getVariantFromId } from "utils/functions";
 
 export const useLocalStorage = () => {
   const [order, setOrder] = useState<Order>();
+  const [userId, setUserId] = useState();
 
   const saveOrder = (
     variantId: string,

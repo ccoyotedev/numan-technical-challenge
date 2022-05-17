@@ -8,9 +8,10 @@ interface Props {
   title: string;
   subtitle: string;
   href: string;
+  handleClick: () => void;
 }
 
-export const Hero = ({ title, subtitle, href }: Props) => {
+export const Hero = ({ title, subtitle, href, handleClick }: Props) => {
   return (
     <section className={styles["hero-container"]}>
       <Image src={Logo} alt="numan logo" />
@@ -18,7 +19,9 @@ export const Hero = ({ title, subtitle, href }: Props) => {
       <h5>{subtitle}</h5>
       <Link href={href}>
         <a>
-          <Button wide>Get started</Button>
+          <Button onClick={handleClick} wide>
+            Get started
+          </Button>
         </a>
       </Link>
     </section>

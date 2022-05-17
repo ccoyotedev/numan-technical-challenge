@@ -1,8 +1,21 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Hero } from "components/sections";
+import { useGlobal } from "context";
+import { postEvent } from "utils/api";
 
 const Home: NextPage = () => {
+  const [{ userId }] = useGlobal();
+  const handleEvent = () => {
+    postEvent({
+      type: "user-started-flow",
+      user_id: userId,
+      data: {
+        foo: "bar",
+      },
+    });
+  };
+
   return (
     <>
       <Head>
@@ -15,6 +28,7 @@ const Home: NextPage = () => {
         title="The helpful healthcare company"
         subtitle="helping your health wherever we can"
         href="/categories"
+        handleClick={handleEvent}
       />
     </>
   );

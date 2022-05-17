@@ -7,6 +7,7 @@ import { getDefaultVariantFromProductId } from "utils/functions";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import Head from "next/head";
+import { useGlobal } from "context";
 
 const Category: NextPage<{
   products: ExtendedProduct[];
@@ -19,6 +20,7 @@ const Category: NextPage<{
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
   const { saveOrder } = useLocalStorage();
+  const [{ userId }] = useGlobal();
 
   const [selectedVariantId, setSelectedVariantId] = useState<
     string | undefined
