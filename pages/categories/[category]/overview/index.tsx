@@ -5,18 +5,23 @@ import { useRouter } from "next/router";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import Head from "next/head";
 import { useCookies } from "hooks/useCookies";
+import { Detail, PersonalDetails } from "types";
 
 const Overview: NextPage = () => {
   const router = useRouter();
   const { order } = useLocalStorage();
-  const { userDetails, removeUserDetails } = useCookies();
+  const { userDetails, saveUsersDetails } = useCookies();
 
   const handlePayment = () => {
     handleNav("success");
   };
 
-  const handleEditDetails = () => {
-    removeUserDetails();
+  const handleEditDetails = (keys: Detail[]) => {
+    const updatedDetails = { ...userDetails };
+    keys.forEach((key) => {
+      updatedDetails[key] = "";
+    });
+    saveUsersDetails(updatedDetails);
     handleNav("details");
   };
 

@@ -3,7 +3,12 @@ import { PersonalDetails } from "types";
 import { useEffect, useState } from "react";
 
 export const useCookies = () => {
-  const [userDetails, setUserDetails] = useState<PersonalDetails>();
+  const [userDetails, setUserDetails] = useState<PersonalDetails>({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    emailAddress: "",
+  });
 
   const saveUsersDetails = (details: PersonalDetails) => {
     const store = JSON.stringify(details);

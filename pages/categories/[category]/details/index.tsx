@@ -26,12 +26,6 @@ const Details: NextPage = () => {
     emailAddress: undefined,
   });
 
-  const getToPath = useCallback(() => {
-    const currentPath = router.asPath;
-    const newPath = currentPath.replace("details", "overview");
-    return newPath;
-  }, [router.asPath]);
-
   const handleSetDetails = (property: keyof PersonalDetails, value: string) => {
     setPersonalDetails((prevState) => ({
       ...prevState,
@@ -39,7 +33,7 @@ const Details: NextPage = () => {
     }));
   };
 
-  const handleNav = () => {
+  const handleSubmit = () => {
     const newErrors = { ...errors };
     // Check for empty input values
     Object.keys(personalDetails).forEach((key) => {
@@ -58,23 +52,39 @@ const Details: NextPage = () => {
     // If no error, continue nav logic
     if (!isError) {
       saveUsersDetails(personalDetails);
-      router.push(getToPath());
+      handleNav("overview");
     }
   };
 
-  // If cookie exists, nav to overview
+  const handleNav = useCallback(
+    (path: string) => {
+      const currentPath = router.asPath;
+      const newPath = currentPath.replace("details", path);
+      router.push(newPath);
+    },
+    [router]
+  );
+
   useEffect(() => {
-    if (userDetails) {
-      router.push(getToPath());
+    // Reroute to overview page if no fields are empty
+    const hasEmptyField = Object.keys(userDetails).some(
+      (key) => userDetails[key as Detail] === ""
+    );
+    setPersonalDetails(userDetails);
+    if (!hasEmptyField) {
+      handleNav("overview");
     }
-  }, [userDetails, getToPath, router]);
+  }, [userDetails, router, handleNav]);
 
   return (
     <>
       <Head>
         <title>Numan | A few details about you</title>
       </Head>
-      <SimpleNavLayout handleClick={handleNav} headerBack={router.back}>
+      <SimpleNavLayout
+        handleClick={handleSubmit}
+        headerBack={() => handleNav("")}
+      >
         <PersonalDetailsForm
           onValueChange={handleSetDetails}
           values={personalDetails}

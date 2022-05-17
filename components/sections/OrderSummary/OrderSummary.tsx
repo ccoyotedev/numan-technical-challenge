@@ -1,12 +1,12 @@
 import { ListHeading, OrderCard, Button } from "components/ui";
-import { Order, PersonalDetails } from "types";
+import { Detail, Order, PersonalDetails } from "types";
 import styles from "./styles.module.scss";
 
 interface Props {
   order?: Order;
   personalDetails?: PersonalDetails;
   handlePayment: () => void;
-  editDetails: () => void;
+  editDetails: (keys: Detail[]) => void;
 }
 
 export const OrderSummary = ({
@@ -32,7 +32,10 @@ export const OrderSummary = ({
             {personalDetails && (
               <span className={styles["info"]}>
                 {personalDetails.firstName} {personalDetails.lastName}
-                <span className={styles["edit"]} onClick={editDetails}>
+                <span
+                  className={styles["edit"]}
+                  onClick={() => editDetails(["firstName", "lastName"])}
+                >
                   Edit
                 </span>
               </span>
@@ -45,13 +48,19 @@ export const OrderSummary = ({
               <>
                 <span className={styles["info"]}>
                   {personalDetails.phoneNumber}
-                  <span className={styles["edit"]} onClick={editDetails}>
+                  <span
+                    className={styles["edit"]}
+                    onClick={() => editDetails(["phoneNumber"])}
+                  >
                     Edit
                   </span>
                 </span>
                 <span className={styles["info"]}>
                   {personalDetails.emailAddress}
-                  <span className={styles["edit"]} onClick={editDetails}>
+                  <span
+                    className={styles["edit"]}
+                    onClick={() => editDetails(["emailAddress"])}
+                  >
                     Edit
                   </span>
                 </span>
