@@ -7,6 +7,12 @@ body {
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, sans-serif;
 }
 
+.main {
+  padding: 8rem 0 8.8rem;
+  background-color: #f6f6f6;
+  min-height: 100vh;
+}
+
 a {
   color: inherit;
   text-decoration: none;

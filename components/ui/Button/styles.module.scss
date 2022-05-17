@@ -47,7 +47,14 @@ $btn-highlight: #3D3D3D;
   }
 
   &.wide {
-    width: 34rem;
+    width: 100%;
+  }
+  
+
+  @media (min-width: 768px) {
+    &.wide {
+      width: 34rem;
+    }
   }
 }
 

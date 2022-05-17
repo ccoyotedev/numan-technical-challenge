@@ -102,3 +102,10 @@ export interface ProductVariant {
 export interface ExtendedProduct extends Product {
   variants: ProductVariant[];
 }
+
+export interface Order {
+  price: number;
+  productName: string;
+  subscriptionFrequency: string;
+  variant: string;
+}

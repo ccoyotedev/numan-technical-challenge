@@ -18,7 +18,7 @@ export const Hero = ({ title, subtitle, href }: Props) => {
       <h6>{subtitle}</h6>
       <Link href={href}>
         <a>
-          <Button>Get started</Button>
+          <Button wide>Get started</Button>
         </a>
       </Link>
     </section>

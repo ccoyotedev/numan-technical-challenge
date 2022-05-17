@@ -2,7 +2,13 @@ import { SimpleNavLayout } from "components/layouts";
 import { ProductSelector } from "components/sections";
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import { useState } from "react";
-import { Category, ExtendedProduct, Product, ProductVariant } from "types";
+import {
+  Category,
+  ExtendedProduct,
+  Order,
+  Product,
+  ProductVariant,
+} from "types";
 import {
   getDefaultVariantFromProductId,
   getProductFromVariantId,
@@ -33,13 +39,16 @@ const Category: NextPage<{
     const variant = getVariantFromId([product], selectedVariantId);
     if (!variant) return;
 
-    const storage = {
+    // Store order into local storage
+    const storage: Order = {
       productName: product.attributes.name,
       variant: variant.attributes.variant,
       price: variant.attributes.price,
       subscriptionFrequency: variant.attributes.subscription_frequency,
     };
     localStorage.setItem("order", JSON.stringify(storage));
+
+    // Navigate to details page
     const currentPath = router.asPath;
     router.push(`${currentPath}/details`);
   };

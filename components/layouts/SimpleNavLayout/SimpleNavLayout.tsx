@@ -1,8 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.scss";
-import { Logo } from "assets/images";
-import { Button } from "components/ui";
+import { Button, Header } from "components/ui";
 import { ChevronRight } from "components/svgs";
 
 interface Props {
@@ -22,19 +20,8 @@ export const SimpleNavLayout = ({
 }: Props) => {
   return (
     <>
-      <header className={styles["simple-header"]}>
-        <Link href="/">
-          <a target="_blank" rel="noreferrer">
-            <Image
-              src={Logo}
-              alt="Numan logo"
-              height={32}
-              objectFit="contain"
-            />
-          </a>
-        </Link>
-      </header>
-      <main className={styles["simple-main"]}>{children}</main>
+      <Header />
+      <main className="main">{children}</main>
       <footer className={styles["simple-footer"]}>
         {back && (
           <Link href={back}>
