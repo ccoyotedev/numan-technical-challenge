@@ -6,13 +6,13 @@ import { useRouter } from "next/router";
 import { Detail, PersonalDetails } from "types";
 import Head from "next/head";
 import { useCookies } from "hooks/useCookies";
-import { useGlobal } from "context";
 import { postEvent } from "utils/api";
+import { useLocalStorage } from "hooks/useLocalStorage";
 
 const Details: NextPage = () => {
   const router = useRouter();
   const { saveUsersDetails, userDetails } = useCookies();
-  const [{ userId }] = useGlobal();
+  const { userId } = useLocalStorage();
 
   const [personalDetails, setPersonalDetails] = useState<PersonalDetails>({
     firstName: "",
@@ -54,17 +54,20 @@ const Details: NextPage = () => {
 
     // If no error, continue nav logic
     if (!isError) {
+      if (userId) {
+        postEvent({
+          type: "user-entered-contact-data",
+          user_id: userId,
+          data: {
+            first_name: personalDetails.firstName,
+            last_name: personalDetails.lastName,
+            phone_number: personalDetails.phoneNumber,
+            email_address: personalDetails.emailAddress,
+          },
+        });
+      }
+
       saveUsersDetails(personalDetails);
-      postEvent({
-        type: "user-entered-contact-data",
-        user_id: userId,
-        data: {
-          first_name: personalDetails.firstName,
-          last_name: personalDetails.lastName,
-          phone_number: personalDetails.phoneNumber,
-          email_address: personalDetails.emailAddress,
-        },
-      });
       handleNav("overview");
     }
   };

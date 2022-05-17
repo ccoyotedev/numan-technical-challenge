@@ -1,20 +1,22 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Hero } from "components/sections";
-import { useGlobal } from "context";
 import { postEvent } from "utils/api";
+import { useLocalStorage } from "hooks/useLocalStorage";
 
 const Home: NextPage = () => {
-  const [{ userId }] = useGlobal();
+  const { userId } = useLocalStorage();
 
   const handleEvent = () => {
-    postEvent({
-      type: "user-started-flow",
-      user_id: userId,
-      data: {
-        foo: "bar",
-      },
-    });
+    if (userId) {
+      postEvent({
+        type: "user-started-flow",
+        user_id: userId,
+        data: {
+          foo: "bar",
+        },
+      });
+    }
   };
 
   return (

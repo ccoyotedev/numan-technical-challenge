@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ExtendedProduct, Order } from "types";
 import { getProductFromVariantId, getVariantFromId } from "utils/functions";
 
 export const useLocalStorage = () => {
   const [order, setOrder] = useState<Order>();
+  const [userId, setUserId] = useState<string>();
 
   const saveOrder = (
     variantId: string,
@@ -29,11 +30,27 @@ export const useLocalStorage = () => {
     return true;
   };
 
+  const generateRandomId = (): string => {
+    const randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    const uniqid = randLetter + Date.now();
+    return uniqid;
+  };
+
+  const saveUserId = useCallback((): string => {
+    const id = generateRandomId();
+    localStorage.setItem("userId", id);
+    setUserId(id);
+    return id;
+  }, []);
+
   // Fetch localstorage on render as need access to window
   useEffect(() => {
     const storageString = localStorage.getItem("order");
+    const id = localStorage.getItem("userId");
+
     if (storageString) setOrder(JSON.parse(storageString));
+    if (id) setUserId(id);
   }, []);
 
-  return { order, saveOrder };
+  return { order, userId, saveOrder, saveUserId };
 };

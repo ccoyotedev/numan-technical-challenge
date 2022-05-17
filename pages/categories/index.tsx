@@ -4,25 +4,25 @@ import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import { useState } from "react";
 import { Category } from "types";
 import Head from "next/head";
-import { useGlobal } from "context";
-import { useRouter } from "next/router";
 import { postEvent } from "utils/api";
+import { useLocalStorage } from "hooks/useLocalStorage";
 
 const Categories: NextPage<{ categories: Category[] }> = ({
   categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const router = useRouter();
-  const [{ userId }] = useGlobal();
+  const { userId } = useLocalStorage();
   const [selectedCategory, setSelectedCategory] = useState<string>();
 
   const handleEvent = () => {
-    postEvent({
-      type: "user-selected-category",
-      user_id: userId,
-      data: {
-        category: selectedCategory,
-      },
-    });
+    if (userId) {
+      postEvent({
+        type: "user-selected-category",
+        user_id: userId,
+        data: {
+          category: selectedCategory,
+        },
+      });
+    }
   };
 
   return (
