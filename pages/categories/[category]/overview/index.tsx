@@ -1,25 +1,25 @@
 import type { NextPage } from "next";
 import { Header } from "components/ui";
-import { useEffect, useState } from "react";
-import { Order } from "types";
 import { OrderSummary } from "components/sections";
 import { useRouter } from "next/router";
+import { useLocalStorage } from "hooks/useLocalStorage";
 
 const Overview: NextPage = () => {
   const router = useRouter();
-  const [order, setOrder] = useState<Order>();
+  const { order } = useLocalStorage();
 
-  useEffect(() => {
-    // Fetch localstorage client side as need access to window
-    const storageString = localStorage.getItem("order");
-    if (storageString) setOrder(JSON.parse(storageString));
-  }, []);
+  const handlePayment = () => {
+    const currentPath = router.asPath;
+    const newPath = currentPath.replace("overview", "success");
+    router.push(newPath);
+  };
 
   return (
     <>
       <Header back={router.back} />
       <main className="main">
         <OrderSummary
+          handlePayment={handlePayment}
           order={order}
           personalDetails={{
             firstName: "Caleb",

@@ -1,18 +1,13 @@
-import { ListHeading, OrderCard, Button } from "components/ui";
+import { ListHeading, OrderCard } from "components/ui";
 import { Order, PersonalDetails } from "types";
 import styles from "./styles.module.scss";
 
 interface Props {
   order?: Order;
   personalDetails?: PersonalDetails;
-  handlePayment: () => void;
 }
 
-export const OrderSummary = ({
-  order,
-  personalDetails,
-  handlePayment,
-}: Props) => {
+export const OrderComplete = ({ order, personalDetails }: Props) => {
   return (
     <section className="container">
       <div className={`row ${styles["summary-container"]}`}>
@@ -20,11 +15,7 @@ export const OrderSummary = ({
           <OrderCard order={order} />
         </div>
         <div className={`col-12 col-sm-6 ${styles["details-container"]}`}>
-          <h2>Order summary</h2>
-          <p>
-            Please make sure your order and personal details below are correct
-            before placing your order.
-          </p>
+          <h2>Order successful!</h2>
           <div className={styles["personal-information"]}>
             <ListHeading number={1} title="Personal information" />
             {personalDetails && (
@@ -47,9 +38,11 @@ export const OrderSummary = ({
               </>
             )}
           </div>
-          <Button wide onClick={handlePayment}>
-            Pay now
-          </Button>
+          <p>
+            Thank you for your purchase, and taking another step towards
+            becoming a new man.
+          </p>
+          <p>Your order should be with you within 3 - 5 working days.</p>
         </div>
       </div>
     </section>

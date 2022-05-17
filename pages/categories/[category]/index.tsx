@@ -15,6 +15,7 @@ import {
   getVariantFromId,
 } from "utils/functions";
 import { useRouter } from "next/router";
+import { useLocalStorage } from "hooks/useLocalStorage";
 
 const Category: NextPage<{
   products: ExtendedProduct[];
@@ -24,6 +25,8 @@ const Category: NextPage<{
   defaultProductId,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
+  const { saveOrder } = useLocalStorage();
+
   const [selectedVariantId, setSelectedVariantId] = useState<
     string | undefined
   >(
@@ -34,23 +37,14 @@ const Category: NextPage<{
 
   const handleNav = () => {
     if (!selectedVariantId) return;
-    const product = getProductFromVariantId(products, selectedVariantId);
-    if (!product) return;
-    const variant = getVariantFromId([product], selectedVariantId);
-    if (!variant) return;
+    // Save order to local storage using custom hook
+    const success = saveOrder(selectedVariantId, products);
 
-    // Store order into local storage
-    const storage: Order = {
-      productName: product.attributes.name,
-      variant: variant.attributes.variant,
-      price: variant.attributes.price,
-      subscriptionFrequency: variant.attributes.subscription_frequency,
-    };
-    localStorage.setItem("order", JSON.stringify(storage));
-
-    // Navigate to details page
-    const currentPath = router.asPath;
-    router.push(`${currentPath}/details`);
+    if (success) {
+      // Navigate to details page
+      const currentPath = router.asPath;
+      router.push(`${currentPath}/details`);
+    }
   };
 
   return (

@@ -15,7 +15,7 @@ export const Hero = ({ title, subtitle, href }: Props) => {
     <section className={styles["hero-container"]}>
       <Image src={Logo} alt="numan logo" />
       <h1>{title}</h1>
-      <h6>{subtitle}</h6>
+      <h5>{subtitle}</h5>
       <Link href={href}>
         <a>
           <Button wide>Get started</Button>

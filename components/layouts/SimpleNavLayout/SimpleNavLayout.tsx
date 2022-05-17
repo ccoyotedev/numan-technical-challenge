@@ -9,6 +9,7 @@ interface Props {
   children: React.ReactNode;
   disabled?: boolean;
   handleClick?: () => void;
+  headerBack?: () => void;
 }
 
 export const SimpleNavLayout = ({
@@ -17,10 +18,11 @@ export const SimpleNavLayout = ({
   children,
   disabled,
   handleClick,
+  headerBack,
 }: Props) => {
   return (
     <>
-      <Header />
+      <Header back={headerBack} />
       <main className="main">{children}</main>
       <footer className={styles["simple-footer"]}>
         {back && (

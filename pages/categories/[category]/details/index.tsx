@@ -13,7 +13,7 @@ const Details: NextPage = () => {
   };
 
   return (
-    <SimpleNavLayout to={getToPath()}>
+    <SimpleNavLayout to={getToPath()} headerBack={router.back}>
       <PersonalDetailsForm />
     </SimpleNavLayout>
   );
