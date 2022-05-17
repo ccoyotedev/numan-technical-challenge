@@ -2,27 +2,20 @@ import { SimpleNavLayout } from "components/layouts";
 import { ProductSelector } from "components/sections";
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import { useState } from "react";
-import {
-  Category,
-  ExtendedProduct,
-  Order,
-  Product,
-  ProductVariant,
-} from "types";
-import {
-  getDefaultVariantFromProductId,
-  getProductFromVariantId,
-  getVariantFromId,
-} from "utils/functions";
+import { Category, ExtendedProduct, Product, ProductVariant } from "types";
+import { getDefaultVariantFromProductId } from "utils/functions";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "hooks/useLocalStorage";
+import Head from "next/head";
 
 const Category: NextPage<{
   products: ExtendedProduct[];
   defaultProductId?: string;
+  category?: string;
 }> = ({
   products,
   defaultProductId,
+  category,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
   const { saveOrder } = useLocalStorage();
@@ -48,17 +41,22 @@ const Category: NextPage<{
   };
 
   return (
-    <SimpleNavLayout
-      back="/categories"
-      disabled={!selectedVariantId}
-      handleClick={handleNav}
-    >
-      <ProductSelector
-        products={products}
-        value={selectedVariantId}
-        onSelect={setSelectedVariantId}
-      />
-    </SimpleNavLayout>
+    <>
+      <Head>
+        <title>Numan | {category || "Products"}</title>
+      </Head>
+      <SimpleNavLayout
+        back="/categories"
+        disabled={!selectedVariantId}
+        handleClick={handleNav}
+      >
+        <ProductSelector
+          products={products}
+          value={selectedVariantId}
+          onSelect={setSelectedVariantId}
+        />
+      </SimpleNavLayout>
+    </>
   );
 };
 
@@ -83,6 +81,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<{
   products: ExtendedProduct[];
   defaultProductId?: string;
+  category?: string;
 }> = async ({ params }) => {
   // params contains the category `id`.
   // Call external API endpoint to get products
@@ -131,6 +130,7 @@ export const getStaticProps: GetStaticProps<{
     props: {
       products: productsWithVariants,
       defaultProductId: defaultId,
+      category: category?.attributes.name,
     },
   };
 };

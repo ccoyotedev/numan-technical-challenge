@@ -4,6 +4,7 @@ import { SimpleNavLayout } from "components/layouts";
 import { PersonalDetailsForm } from "components/sections";
 import { useRouter } from "next/router";
 import { Detail, PersonalDetails } from "types";
+import Head from "next/head";
 
 const Details: NextPage = () => {
   const router = useRouter();
@@ -57,13 +58,18 @@ const Details: NextPage = () => {
   };
 
   return (
-    <SimpleNavLayout handleClick={handleNav} headerBack={router.back}>
-      <PersonalDetailsForm
-        onValueChange={handleSetDetails}
-        values={personalDetails}
-        errors={errors}
-      />
-    </SimpleNavLayout>
+    <>
+      <Head>
+        <title>Numan | A few details about you</title>
+      </Head>
+      <SimpleNavLayout handleClick={handleNav} headerBack={router.back}>
+        <PersonalDetailsForm
+          onValueChange={handleSetDetails}
+          values={personalDetails}
+          errors={errors}
+        />
+      </SimpleNavLayout>
+    </>
   );
 };
 

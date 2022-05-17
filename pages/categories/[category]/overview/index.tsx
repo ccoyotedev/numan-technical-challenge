@@ -3,6 +3,7 @@ import { Header } from "components/ui";
 import { OrderSummary } from "components/sections";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "hooks/useLocalStorage";
+import Head from "next/head";
 
 const Overview: NextPage = () => {
   const router = useRouter();
@@ -16,6 +17,9 @@ const Overview: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Numan | Overview</title>
+      </Head>
       <Header back={router.back} />
       <main className="main">
         <OrderSummary

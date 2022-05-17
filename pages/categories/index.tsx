@@ -3,6 +3,7 @@ import { CategorySelector } from "components/sections";
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import { useState } from "react";
 import { Category } from "types";
+import Head from "next/head";
 
 const Categories: NextPage<{ categories: Category[] }> = ({
   categories,
@@ -10,16 +11,22 @@ const Categories: NextPage<{ categories: Category[] }> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>();
 
   return (
-    <SimpleNavLayout
-      to={selectedCategory ? `/categories/${selectedCategory}` : undefined}
-      disabled={!selectedCategory}
-    >
-      <CategorySelector
-        categories={categories}
-        onSelect={setSelectedCategory}
-        selected={selectedCategory}
-      />
-    </SimpleNavLayout>
+    <>
+      <Head>
+        <title>Numan</title>
+      </Head>
+
+      <SimpleNavLayout
+        to={selectedCategory ? `/categories/${selectedCategory}` : undefined}
+        disabled={!selectedCategory}
+      >
+        <CategorySelector
+          categories={categories}
+          onSelect={setSelectedCategory}
+          selected={selectedCategory}
+        />
+      </SimpleNavLayout>
+    </>
   );
 };
 
