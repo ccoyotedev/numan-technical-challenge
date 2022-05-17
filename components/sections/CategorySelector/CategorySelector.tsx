@@ -25,7 +25,7 @@ export const CategorySelector = ({ categories, onSelect, selected }: Props) => {
         {orderCategories(categories).map((category) => (
           <button
             key={category.id}
-            className="col-12 col-md-6"
+            className="col-12 col-sm-6 col-lg-4"
             onClick={() => onSelect(category.attributes.slug)}
           >
             <CategoryCard
