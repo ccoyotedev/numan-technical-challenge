@@ -6,7 +6,7 @@ View [Deployed site here](https://numan-technical-challenge.vercel.app/)
 
 This is a [Next.js](https://nextjs.org/) + Typescript project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-# Getting Started
+## Getting Started
 
 First, install dependencies by running:
 ```
