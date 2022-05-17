@@ -6,6 +6,7 @@ import { postEvent } from "utils/api";
 
 const Home: NextPage = () => {
   const [{ userId }] = useGlobal();
+
   const handleEvent = () => {
     postEvent({
       type: "user-started-flow",

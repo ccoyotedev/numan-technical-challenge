@@ -6,6 +6,7 @@ import { Category } from "types";
 import Head from "next/head";
 import { useGlobal } from "context";
 import { useRouter } from "next/router";
+import { postEvent } from "utils/api";
 
 const Categories: NextPage<{ categories: Category[] }> = ({
   categories,
@@ -14,6 +15,16 @@ const Categories: NextPage<{ categories: Category[] }> = ({
   const [{ userId }] = useGlobal();
   const [selectedCategory, setSelectedCategory] = useState<string>();
 
+  const handleEvent = () => {
+    postEvent({
+      type: "user-selected-category",
+      user_id: userId,
+      data: {
+        category: selectedCategory,
+      },
+    });
+  };
+
   return (
     <>
       <Head>
@@ -21,6 +32,7 @@ const Categories: NextPage<{ categories: Category[] }> = ({
       </Head>
 
       <SimpleNavLayout
+        handleClick={handleEvent}
         to={selectedCategory ? `/categories/${selectedCategory}` : undefined}
         disabled={!selectedCategory}
       >

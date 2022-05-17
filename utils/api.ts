@@ -14,7 +14,7 @@ export const postEvent = async (body: Body) => {
       },
       body: JSON.stringify(body),
     });
-    alert(res);
+    console.log(res);
   } catch (err) {
     console.error(err);
   }

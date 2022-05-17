@@ -67,7 +67,11 @@ export const OrderSummary = ({
               </>
             )}
           </div>
-          <Button wide onClick={handlePayment}>
+          <Button
+            wide
+            onClick={handlePayment}
+            disabled={!order || !personalDetails}
+          >
             Pay now
           </Button>
         </div>

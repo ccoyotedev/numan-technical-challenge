@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import Head from "next/head";
 import { useGlobal } from "context";
+import { postEvent } from "utils/api";
 
 const Category: NextPage<{
   products: ExtendedProduct[];
@@ -33,13 +34,16 @@ const Category: NextPage<{
   const handleNav = () => {
     if (!selectedVariantId) return;
     // Save order to local storage using custom hook
-    const success = saveOrder(selectedVariantId, products);
+    saveOrder(selectedVariantId, products);
 
-    if (success) {
-      // Navigate to details page
-      const currentPath = router.asPath;
-      router.push(`${currentPath}/details`);
-    }
+    // Fire event
+    postEvent({
+      type: "user-selected-product",
+      user_id: userId,
+      data: {
+        product_id: selectedVariantId,
+      },
+    });
   };
 
   return (
@@ -51,6 +55,7 @@ const Category: NextPage<{
         back="/categories"
         disabled={!selectedVariantId}
         handleClick={handleNav}
+        to={`${router.asPath}/details`}
       >
         <ProductSelector
           products={products}

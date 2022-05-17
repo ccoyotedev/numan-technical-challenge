@@ -32,28 +32,19 @@ export const SimpleNavLayout = ({
             </a>
           </Link>
         )}
-        {handleClick ? (
-          <Button
-            onClick={handleClick}
-            wide
-            icon={<ChevronRight fill="white" size="22" />}
-            disabled={disabled}
-          >
-            Next{" "}
-          </Button>
-        ) : (
-          <Link href={to || "#"}>
-            <a className={disabled ? "disabled" : ""}>
-              <Button
-                wide
-                icon={<ChevronRight fill="white" size="22" />}
-                disabled={disabled}
-              >
-                Next{" "}
-              </Button>
-            </a>
-          </Link>
-        )}
+
+        <Link href={to || "#"}>
+          <a className={disabled ? "disabled" : ""}>
+            <Button
+              onClick={handleClick}
+              wide
+              icon={<ChevronRight fill="white" size="22" />}
+              disabled={disabled}
+            >
+              Next{" "}
+            </Button>
+          </a>
+        </Link>
       </footer>
     </>
   );

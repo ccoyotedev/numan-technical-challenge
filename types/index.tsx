@@ -104,6 +104,7 @@ export interface ExtendedProduct extends Product {
 }
 
 export interface Order {
+  id: string;
   price: number;
   productName: string;
   subscriptionFrequency: string;

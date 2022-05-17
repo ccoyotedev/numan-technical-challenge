@@ -4,7 +4,6 @@ import { getProductFromVariantId, getVariantFromId } from "utils/functions";
 
 export const useLocalStorage = () => {
   const [order, setOrder] = useState<Order>();
-  const [userId, setUserId] = useState();
 
   const saveOrder = (
     variantId: string,
@@ -19,6 +18,7 @@ export const useLocalStorage = () => {
 
     // Store order into local storage
     const storage: Order = {
+      id: variantId,
       productName: product.attributes.name,
       variant: variant.attributes.variant,
       price: variant.attributes.price,
