@@ -6,12 +6,14 @@ interface Props {
   order?: Order;
   personalDetails?: PersonalDetails;
   handlePayment: () => void;
+  editDetails: () => void;
 }
 
 export const OrderSummary = ({
   order,
   personalDetails,
   handlePayment,
+  editDetails,
 }: Props) => {
   return (
     <section className="container">
@@ -30,6 +32,9 @@ export const OrderSummary = ({
             {personalDetails && (
               <span className={styles["info"]}>
                 {personalDetails.firstName} {personalDetails.lastName}
+                <span className={styles["edit"]} onClick={editDetails}>
+                  Edit
+                </span>
               </span>
             )}
           </div>
@@ -40,9 +45,15 @@ export const OrderSummary = ({
               <>
                 <span className={styles["info"]}>
                   {personalDetails.phoneNumber}
+                  <span className={styles["edit"]} onClick={editDetails}>
+                    Edit
+                  </span>
                 </span>
                 <span className={styles["info"]}>
                   {personalDetails.emailAddress}
+                  <span className={styles["edit"]} onClick={editDetails}>
+                    Edit
+                  </span>
                 </span>
               </>
             )}

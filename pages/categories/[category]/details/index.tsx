@@ -1,13 +1,15 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { SimpleNavLayout } from "components/layouts";
 import { PersonalDetailsForm } from "components/sections";
 import { useRouter } from "next/router";
 import { Detail, PersonalDetails } from "types";
 import Head from "next/head";
+import { useCookies } from "hooks/useCookies";
 
 const Details: NextPage = () => {
   const router = useRouter();
+  const { saveUsersDetails, userDetails } = useCookies();
 
   const [personalDetails, setPersonalDetails] = useState<PersonalDetails>({
     firstName: "",
@@ -24,11 +26,11 @@ const Details: NextPage = () => {
     emailAddress: undefined,
   });
 
-  const getToPath = () => {
+  const getToPath = useCallback(() => {
     const currentPath = router.asPath;
     const newPath = currentPath.replace("details", "overview");
     return newPath;
-  };
+  }, [router.asPath]);
 
   const handleSetDetails = (property: keyof PersonalDetails, value: string) => {
     setPersonalDetails((prevState) => ({
@@ -54,8 +56,18 @@ const Details: NextPage = () => {
     );
 
     // If no error, continue nav logic
-    if (!isError) router.push(getToPath());
+    if (!isError) {
+      saveUsersDetails(personalDetails);
+      router.push(getToPath());
+    }
   };
+
+  // If cookie exists, nav to overview
+  useEffect(() => {
+    if (userDetails) {
+      router.push(getToPath());
+    }
+  }, [userDetails, getToPath, router]);
 
   return (
     <>

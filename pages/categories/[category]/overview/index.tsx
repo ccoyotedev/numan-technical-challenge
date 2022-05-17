@@ -4,14 +4,23 @@ import { OrderSummary } from "components/sections";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import Head from "next/head";
+import { useCookies } from "hooks/useCookies";
 
 const Overview: NextPage = () => {
   const router = useRouter();
   const { order } = useLocalStorage();
+  const { userDetails, removeUserDetails } = useCookies();
 
   const handlePayment = () => {
     const currentPath = router.asPath;
     const newPath = currentPath.replace("overview", "success");
+    router.push(newPath);
+  };
+
+  const handleEditDetails = () => {
+    removeUserDetails();
+    const currentPath = router.asPath;
+    const newPath = currentPath.replace("overview", "details");
     router.push(newPath);
   };
 
@@ -25,12 +34,8 @@ const Overview: NextPage = () => {
         <OrderSummary
           handlePayment={handlePayment}
           order={order}
-          personalDetails={{
-            firstName: "Caleb",
-            lastName: "Brown",
-            phoneNumber: "07892786672",
-            emailAddress: "calebgcbrown@gmail.com",
-          }}
+          personalDetails={userDetails}
+          editDetails={handleEditDetails}
         />
       </main>
     </>
