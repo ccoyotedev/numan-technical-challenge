@@ -43,4 +43,6 @@ Develop a simple purchase flow using a set of web API endpoints. Every step in t
 
 - I would also add images for each product type, and improve the landing page for a better first impression.
 
+- Add in final check on `overview` page to check user + order details exist before submitting the order
+
 
