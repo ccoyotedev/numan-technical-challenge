@@ -45,4 +45,6 @@ Develop a simple purchase flow using a set of web API endpoints. Every step in t
 
 - Add in final check on `overview` page to check user + order details exist before submitting the order
 
+- Sync personal details into a global state and give users an option to 'remember me' to save data into a cookie.
+
 
